@@ -1,8 +1,10 @@
-import { Body, Controller, Post, Request, UseGuards } from '@nestjs/common';
+import { Body, Controller, Post, UseGuards } from '@nestjs/common';
 import { AuthGuard } from '@nestjs/passport';
 import { ApiBearerAuth, ApiTags } from '@nestjs/swagger';
 import { PaymentService } from './payment.service';
 import { VerifyPaymentDto } from './dto/verify-payment.dto';
+import { CurrentUser } from '../common/decorators/current-user.decorator';
+import { User } from '../user/user.entity';
 
 @ApiTags('payments')
 @Controller('payment')
@@ -12,7 +14,7 @@ export class PaymentController {
   constructor(private readonly paymentService: PaymentService) {}
 
   @Post('verify')
-  verify(@Request() req, @Body() dto: VerifyPaymentDto) {
-    return this.paymentService.verifyPayment(req.user.id, dto);
+  verify(@CurrentUser() user: User, @Body() dto: VerifyPaymentDto) {
+    return this.paymentService.verifyPayment(user.id, dto);
   }
 }

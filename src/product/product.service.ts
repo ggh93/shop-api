@@ -13,7 +13,11 @@ export class ProductService {
   ) {}
 
   findAll(): Promise<Product[]> {
-    return this.productRepository.find({ order: { createdAt: 'DESC' } });
+    const params = this.productRepository.find({
+      order: { createdAt: 'DESC' },
+    });
+
+    return params;
   }
 
   async findOne(id: number): Promise<Product> {
@@ -29,7 +33,10 @@ export class ProductService {
     return this.productRepository.save(product);
   }
 
-  async update(id: number, updateProductDto: UpdateProductDto): Promise<Product> {
+  async update(
+    id: number,
+    updateProductDto: UpdateProductDto,
+  ): Promise<Product> {
     const product = await this.findOne(id);
     Object.assign(product, updateProductDto);
     return this.productRepository.save(product);

@@ -9,6 +9,21 @@ import { Repository } from 'typeorm';
 import { Order, OrderStatus } from '../order/order.entity';
 import { VerifyPaymentDto } from './dto/verify-payment.dto';
 
+interface PortoneTokenResponse {
+  code: number;
+  response: {
+    access_token: string;
+  };
+}
+
+interface PortonePaymentResponse {
+  code: number;
+  response: {
+    status: string;
+    amount: number;
+  };
+}
+
 @Injectable()
 export class PaymentService {
   constructor(
@@ -17,7 +32,7 @@ export class PaymentService {
     private orderRepository: Repository<Order>,
   ) {}
 
-  private async getIamportToken(): Promise<string> {
+  private async getPortoneToken(): Promise<string> {
     const impKey = this.configService.get<string>('PORTONE_IMP_KEY');
     const impSecret = this.configService.get<string>('PORTONE_IMP_SECRET');
 
@@ -27,12 +42,12 @@ export class PaymentService {
       body: JSON.stringify({ imp_key: impKey, imp_secret: impSecret }),
     });
 
-    const data = (await response.json()) as any;
+    const data = (await response.json()) as PortoneTokenResponse;
     if (data.code !== 0) {
       throw new BadRequestException('포트원 인증 토큰 발급에 실패했습니다.');
     }
 
-    return data.response.access_token as string;
+    return data.response.access_token;
   }
 
   async verifyPayment(userId: number, dto: VerifyPaymentDto): Promise<Order> {
@@ -43,14 +58,14 @@ export class PaymentService {
       throw new NotFoundException('주문을 찾을 수 없습니다.');
     }
 
-    const accessToken = await this.getIamportToken();
+    const accessToken = await this.getPortoneToken();
 
     const response = await fetch(
       `https://api.iamport.kr/payments/${dto.impUid}`,
       { headers: { Authorization: accessToken } },
     );
 
-    const data = (await response.json()) as any;
+    const data = (await response.json()) as PortonePaymentResponse;
     if (data.code !== 0) {
       throw new BadRequestException('결제 정보를 조회할 수 없습니다.');
     }

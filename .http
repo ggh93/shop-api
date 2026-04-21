@@ -1,0 +1,91 @@
+### API Endpoints
+# | Method | Path            | 설명              |
+# | POST   | /product        | 상품 등록         |
+# | PATCH  | /product/:id    | 상품 수정         |
+# | DELETE | /product/:id    | 상품 삭제         |
+# | POST   | /order          | 주문 생성         |
+# | GET    | /order/my       | 내 주문 내역 조회 |
+# | POST   | /payment/verify | 결제 검증         |
+
+
+### register user
+POST http://localhost:3000/auth/register
+Content-Type: application/json 
+
+{
+    "email": "ggh93@naver.com",
+    "password": "qwer1234",
+    "name": "테스터"
+}
+
+### login user
+POST http://localhost:3000/auth/login
+Content-Type: application/json  
+
+{
+    "email": "ggh93@naver.com",
+    "password": "qwer1234"
+}
+
+### product list
+GET http://localhost:3000/product
+
+### product detail
+GET http://localhost:3000/product/3
+
+### create product
+POST http://localhost:3000/product
+Content-Type: application/json
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOjEsImVtYWlsIjoiZ2doOTNAbmF2ZXIuY29tIiwiaWF0IjoxNzc2NzYzMDUyLCJleHAiOjE3NzczNjc4NTJ9.pDpoF4jGGS1pi7rEbi7NC2HNUZ7yfWqFh-y7G0klPFU
+
+{
+    "name": "나이키 운동화",
+    "description": "편안한 착용감과 세련된 디자인의 나이키 운동화입니다.",
+    "price": 50000,
+    "stock": 10
+}
+
+### update product
+PATCH http://localhost:3000/product/3
+Content-Type: application/json
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOjEsImVtYWlsIjoiZ2doOTNAbmF2ZXIuY29tIiwiaWF0IjoxNzc2NzYzMDUyLCJleHAiOjE3NzczNjc4NTJ9.pDpoF4jGGS1pi7rEbi7NC2HNUZ7yfWqFh-y7G0klPFU
+
+{
+    "price": 15000,
+    "stock": 15
+}
+
+### delete product
+DELETE http://localhost:3000/product/1
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOjEsImVtYWlsIjoiZ2doOTNAbmF2ZXIuY29tIiwiaWF0IjoxNzc2NzYzMDUyLCJleHAiOjE3NzczNjc4NTJ9.pDpoF4jGGS1pi7rEbi7NC2HNUZ7yfWqFh-y7G0klPFU
+
+### order create
+POST http://localhost:3000/order
+Content-Type: application/json
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOjEsImVtYWlsIjoiZ2doOTNAbmF2ZXIuY29tIiwiaWF0IjoxNzc2NzYzMDUyLCJleHAiOjE3NzczNjc4NTJ9.pDpoF4jGGS1pi7rEbi7NC2HNUZ7yfWqFh-y7G0klPFU
+
+{
+    "items": [
+        {
+            "productId": 2,
+            "quantity": 2
+        },
+        {
+            "productId": 3,
+            "quantity": 1
+        }
+    ]
+}
+
+### find my orders
+GET http://localhost:3000/order/my
+
+### verify payment
+POST http://localhost:3000/payment/verify
+Content-Type: application/json
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOjEsImVtYWlsIjoiZ2doOTNAbmF2ZXIuY29tIiwiaWF0IjoxNzc2NzYzMDUyLCJleHAiOjE3NzczNjc4NTJ9.pDpoF4jGGS1pi7rEbi7NC2HNUZ7yfWqFh-y7G0klPFU
+
+{
+    "impUid": "imp_1234567890",
+    "orderId": 3
+}

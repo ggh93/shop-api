@@ -12,15 +12,15 @@ JWT 인증, 상품/주문 관리, 포트원 결제 연동까지 커머스 핵심
 - **Framework**: NestJS, TypeScript
 - **Database**: MySQL, TypeORM
 - **Auth**: JWT, Passport
-- **Payment**: 포트원 (iamport)
+- **Payment**: 포트원 (Portone)
 - **Infra**: Docker, AWS EC2
 - **Docs**: Swagger
 
 ## ✅ 구현 기능
 
-- [x] 회원가입 / 로그인 (JWT)
-- [x] 상품 목록 조회 / 상세
-- [x] 주문 생성
+- [o] 회원가입 / 로그인 (JWT)
+- [o] 상품 목록 조회 / 상세
+- [o] 주문 생성
 - [x] 포트원 결제 연동
 - [x] 주문 내역 조회
 
@@ -28,14 +28,14 @@ JWT 인증, 상품/주문 관리, 포트원 결제 연동까지 커머스 핵심
 
 JWT Bearer 토큰이 필요한 엔드포인트:
 
-| Method | Path | 설명 |
-|--------|------|------|
-| POST | /product | 상품 등록 |
-| PATCH | /product/:id | 상품 수정 |
-| DELETE | /product/:id | 상품 삭제 |
-| POST | /order | 주문 생성 |
-| GET | /order/my | 내 주문 내역 조회 |
-| POST | /payment/verify | 결제 검증 |
+| Method | Path            | 설명              |
+| ------ | --------------- | ----------------- |
+| POST   | /product        | 상품 등록         |
+| PATCH  | /product/:id    | 상품 수정         |
+| DELETE | /product/:id    | 상품 삭제         |
+| POST   | /order          | 주문 생성         |
+| GET    | /order/my       | 내 주문 내역 조회 |
+| POST   | /payment/verify | 결제 검증         |
 
 ## 🚀 실행 방법
 
