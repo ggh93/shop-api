@@ -35,7 +35,7 @@ export class Order {
   orderItems: OrderItem[];
 
   @Column({
-    type: 'enum',
+    type: 'simple-enum',
     enum: OrderStatus,
     default: OrderStatus.PENDING,
   })
